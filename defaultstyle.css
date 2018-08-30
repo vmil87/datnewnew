@@ -1,0 +1,60 @@
+/*{
+    // With these codes padding and border does not increase its width and gives intuitive style.
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+*/
+
+form {
+    border: 3px solid #f1f1f1;
+}
+
+/* Align center the div box for intro header and for any error messages. */
+.intro {
+    text-align: center;
+}
+
+header {
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* 
+ https://stackoverflow.com/questions/3790935/can-i-hide-the-html5-number-input-s-spin-box
+*/
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+input[type=text], input[type=number], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+/**/
+.container {
+    padding: 16px;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
