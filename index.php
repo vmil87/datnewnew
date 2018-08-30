@@ -64,11 +64,11 @@ The PHP script insertToDb.php will be executed after the user clicks "Submit"-->
 	<form action="insertToDb.php" method="post">
 
 		<label> Vehicle information :</label>
-		<input type="text" name="make" required>
-		<input type="text" name="model" required>
-		<input type="date" name="start" required>
-		<input type="date" name="end" required>
-		<input type="text" name="EmployeeName" required>
+		Make:<input type="text" name="make" required>
+		Model:<input type="text" name="model" required>
+		Start Date:<input type="date" name="start" required>
+		End Date:<input type="date" name="end" required>
+		Employee Name<input type="text" name="EmployeeName" required>
 		
 		<button type="submit">Submit</button>
 	</form>
