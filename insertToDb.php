@@ -16,7 +16,7 @@
 	}
  
 	// PHP script used to connect to backend Azure SQL database
-	require 'ConnectToDatabase.php';
+	require 'connectToDatabase.php';
 
 	// Start session for this particular PHP script execution.
 	session_start();
