@@ -22,15 +22,15 @@
 	session_start();
 
 	// Define ariables and set to empty values
-	$expenseDay = $expenseMonth = $expenseYear = $expenseAmount = $expenseNote = $expenseCategory = $errorMessage = NULL;
+	//$expenseDay = $expenseMonth = $expenseYear = $expenseAmount = $expenseNote = $expenseCategory = $errorMessage = NULL;
 
 	// Get input variables
-	$expenseDay= (int) parse_input($_POST['expense_day']);
-	$expenseMonth= (int) parse_input($_POST['expense_month']);
-	$expenseYear= (int) parse_input($_POST['expense_year']);
-	$expenseAmount= (float) parse_input($_POST['expense_amount']);
-	$expenseNote= parse_input($_POST['input_note']);
-	$expenseCategory= parse_input($_POST['expense_category']);
+	$make= (int) parse_input($_POST['make']);
+	$model= (int) parse_input($_POST['model']);
+	$start= (int) parse_input($_POST['start']);
+	$end= (float) parse_input($_POST['end']);
+	$EmployeeName= parse_input($_POST['EmployeeName']);
+	
 
 	// Get the authentication claims stored in the Token Store after user logins using Azure Active Directory
 	$claims= json_decode($_SERVER['MS_CLIENT_PRINCIPAL'])->claims;
@@ -51,15 +51,15 @@
 	$anyErrors= FALSE;
 
 	// Check category validity
-	if ($expenseCategory == '-1') {$errorMessage= "Error: Invalid Category Selected"; $anyErrors= TRUE;}
+	//if ($expenseCategory == '-1') {$errorMessage= "Error: Invalid Category Selected"; $anyErrors= TRUE;}
 	
 	// Check date validity
-	$isValidDate= checkdate($expenseMonth, $expenseDay, $expenseYear);
-	if (!$isValidDate) {$errorMessage= "Error: Invalid Date"; $anyErrors= TRUE;}
+	//$isValidDate= checkdate($expenseMonth, $expenseDay, $expenseYear);
+	//if (!$isValidDate) {$errorMessage= "Error: Invalid Date"; $anyErrors= TRUE;}
 
 	// Check that the expense amount input has maximum of 2 decimal places (check against string input, not the float parsed input)
-	$isValidExpenseAmount= validateTwoDecimals(parse_input($_POST['expense_amount']));
-	if (!$isValidExpenseAmount) {$errorMessage= "Error: Invalid Expense Amount"; $anyErrors= TRUE;}
+	//$isValidExpenseAmount= validateTwoDecimals(parse_input($_POST['expense_amount']));
+	//if (!$isValidExpenseAmount) {$errorMessage= "Error: Invalid Expense Amount"; $anyErrors= TRUE;}
 
 
 	///////////////////////////////////////////////////////
@@ -70,7 +70,7 @@
 	if ( !$anyErrors ) 
 	{
 		// Create a DateTime object based on inputted data
-		$dateObj= DateTime::createFromFormat('Y-m-d', $expenseYear . "-" . $expenseMonth . "-" . $expenseDay);
+		/*$dateObj= DateTime::createFromFormat('Y-m-d', $expenseYear . "-" . $expenseMonth . "-" . $expenseDay);
 
 		// Get the name of the month (e.g. January) of this expense
 		$expenseMonthName= $dateObj->format('F');
@@ -79,31 +79,26 @@
 		$expenseDayOfWeekNum= $dateObj->format('w');
 		$days = array('Sunday', 'Monday', 'Tuesday', 'Wednesday','Thursday','Friday', 'Saturday');
 		$expenseDayOfWeek = $days[$expenseDayOfWeekNum];
-
+		*/
 		// Connect to Azure SQL Database
 		$conn = ConnectToDabase();
 
 		// Build SQL query to insert new expense data into SQL database
 		$tsql=
-		"INSERT INTO Expenses (	
-				UserName,
-				ExpenseDay,
-				ExpenseDayOfWeek,
-				ExpenseMonth,
-				ExpenseMonthName,
-				ExpenseYear,
-				ExpenseCategory,
-				ExpenseAmount,
-				Notes)
-		VALUES ('" . $userEmail . "',
-				'" . $expenseDay . "', 
-				'" . $expenseDayOfWeek . "', 
-				'" . $expenseMonth . "', 
-				'" . $expenseMonthName . "', 
-				'" . $expenseYear . "', 
-				'" . $expenseCategory . "', 
-				'" . $expenseAmount . "', 
-				'" . $expenseNote . "')";
+		"INSERT INTO Car (
+				Make,
+				Model,
+				DateStart,
+				DateEnd,
+				Name
+				)
+		VALUES (
+				'" . $make . "', 
+				'" . $model . "', 
+				'" . $start . "', 
+				'" . $end . "', 
+				'" . $EmployeeName . "', 
+				)";
 
 		// Run query
 		$sqlQueryStatus= sqlsrv_query($conn, $tsql);
@@ -115,7 +110,7 @@
 	// Initialize an array of previously-posted info
 	$prevSelections = array();
 
-	// Populate array with key-value pairs
+	/* Populate array with key-value pairs
 	$prevSelections['errorMessage']= $errorMessage;
 	$prevSelections['prevExpenseDay']= $expenseDay;
 	$prevSelections['prevExpenseMonth']= $expenseMonth;
@@ -123,9 +118,9 @@
 	$prevSelections['prevExpenseCategory']= $expenseCategory;
 	$prevSelections['prevExpenseAmount']= $expenseAmount;
 	$prevSelections['prevExpenseNote']= $expenseNote;
-
+	*/
 	// Store previously-selected data as part of info to carry over after URL redirection
-	$_SESSION['prevSelections'] = $prevSelections;
+	//$_SESSION['prevSelections'] = $prevSelections;
 
 	/* Redirect browser to home page */
 	header("Location: /"); 
